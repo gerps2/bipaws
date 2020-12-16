@@ -5,6 +5,7 @@ from django.utils import formats
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from BipEp.models import Usuario
+from BipEp.models import Etnia
 from BipEp.models import Permissoes
 from BipEp.models import Areasequipe
 from BipEp.models import Hospitais
@@ -12,6 +13,11 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.core import serializers
 from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+import datetime
 
 @login_required
 def home(request):
@@ -82,4 +88,11 @@ def cadastrarUsuario(request):
     else:
         return render(request, 'htmlHome/acessoNegado.html')
     
-   
+@api_view(['POST'])
+def etniaSalvar(request):
+    if request.data != None:
+        dados = Etnia(nome = request.data['nome'])
+        dados.save()
+        return Response({'sucesso': True})
+    else:
+        return Response({'sucesso': False}) 

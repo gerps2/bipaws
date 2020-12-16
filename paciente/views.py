@@ -41,12 +41,15 @@ def chat(request):
 
 @login_required
 def consultas(request):
-    consultas = Consultas.objects.filter(idusuario = request.user.id)
+    usuarios = Usuario.objects.get(iduser = request.user.id)
+    consultas = Consultas.objects.filter(idusuario = usuarios.id)
+    print(consultas)
     return render(request, 'htmlPaciente/consultas.html', {'consultas': consultas})
 
 @login_required
 def exames(request):
-    exames = Exames.objects.filter(idusuario = request.user.id)
+    usuarios = Usuario.objects.get(iduser = request.user.id)
+    exames = Exames.objects.filter(idusuario = usuarios.id)
     return render(request, 'htmlPaciente/exames.html', {'exames': exames})
 
 @login_required

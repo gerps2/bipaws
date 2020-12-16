@@ -53,6 +53,7 @@
 <br>
 <h1 class="mt-4">Olá, Paciente <br>
     <h1>{{nome}}</h1>
+    <h2 class="text-center  text-primary">Agradecemos a sua participacao no projeto!</h2>
 </h1>
 {% elif permissao == 4 %}
 <br>
@@ -62,14 +63,18 @@
 {% endif %}
 <br>
 <br>
-<br>
-<br>
 <div class="col-md-4">
     <div class="col-md-3">
         <img src="{% static 'img/simbolo.png' %}" height="200">
     </div>
 </div>
-
+<div class="form-group">
+    <label class="col-md-3 control-label" for="inputDefault">Teste</label>
+    <div class="col-md-6">
+        <input type="text" class="form-control" id="teste">
+    </div>
+    <button id="enviar" type="button" class="btn btn-primary">enviar </button>
+</div>
 <script>
     function relocate_admin()
     {
@@ -94,9 +99,30 @@
             <div class="col-md-3 pull-right">
                 <img src="{% static 'img/fapesp.png' %}" height="45">
                 <img src="{% static 'img/cnpq.png' %}" height="65">
-                <img src="{% static 'img/ministerio.png' %}" height="70">
+                <img src="{% static 'img/ministerio.png' %}" style="margin-bottom: 10px;" height="70">
             </div>
         </div>
     </footer>        
 </div>
+
+
+<script>
+$('#enviar').click(
+    function () {
+		var valor = $("#teste").val();
+		console.log(valor)
+		$.ajax({
+    	url: '/etnia/',
+        type: 'post',
+        data: JSON.stringify({"nome":valor }),
+    	success: function(data) {
+            $('#teste').prop("disabled", true);
+            console.log('sucesso')
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 	
+});
+</script>
 {% endblock %}

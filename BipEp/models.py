@@ -15,10 +15,6 @@ class Consultas(models.Model):
         managed = False
         db_table = 'consultas'
         
-        
-    def __str__(self):
-        return self.local
-
 class Exames(models.Model):
     idexame = models.AutoField(db_column='idExame', primary_key=True)  # Field name made lowercase.
     idusuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='idUsuario', blank=True, null=True)  # Field name made lowercase.
@@ -29,9 +25,6 @@ class Exames(models.Model):
     class Meta:
         managed = False
         db_table = 'exames'
-    
-    def __str__(self):
-        return self.local
 
 class Hospitais(models.Model):
     idhospital = models.AutoField(db_column='idHospital', primary_key=True)  # Field name made lowercase.
@@ -40,9 +33,6 @@ class Hospitais(models.Model):
     class Meta:
         managed = False
         db_table = 'hospitais'
-
-    def __str__(self):
-        return self.nome
 
 class Medico(models.Model):
     idmedico = models.AutoField(primary_key=True)
